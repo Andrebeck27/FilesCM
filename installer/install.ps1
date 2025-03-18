@@ -69,7 +69,7 @@ You can do so here."
     } else { 
         $ButtonType = [System.Windows.Forms.MessageBoxButtons]::YesNo
         $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
-        $MessageBody = "Done. If you do not see the icon next to the contest menu option, restart Explorer.exe. You must set your AccountID in C:\Program Files\FilesCM\AccountID. Open this file?"
+        $MessageBody = "Done. If you do not see the icon next to the context menu option, restart Explorer.exe. You must set your AccountID in C:\Program Files\FilesCM\AccountID. Open this file?"
         $MessageTitle = "Done!"
         $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
     
