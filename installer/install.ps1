@@ -38,6 +38,8 @@ Add-Type -AssemblyName PresentationCore,PresentationFramework
     }else{
     New-Item -Name "FilesCM" -ItemType "directory"
     Copy-Item -path "$OriginalPath\files\*" -Destination "C:\Program Files\FilesCM" -Recurse
+    takeown /f "C:\Program Files\FilesCM" /r /d y
+    icacls "C:\Program Files\FilesCM" /grant %username%:F /T
     }
     }
     if($showuninstallpromptopen -ne 0){
