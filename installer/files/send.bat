@@ -30,10 +30,7 @@ pause > nul
 exit
 
 :noacc
-echo No account ID was set.
-echo.
-echo Press any key to open the account ID file. Copy and paste it, only numbers, no spaces. Setting the Account ID to anything that ISN'T an Account ID will cause problems.
-echo.
-pause > nul
-"C:\Program Files\FilesCM\AccountID.txt"
+break > "C:\Program Files\FilesCM\response.txt"
+curl -F "file=@%~1" -H "X-Account-ID: %AccID%" https://api.files.vc/upload > "C:\Program Files\FilesCM\response.txt"
+cmd /c start /min "" Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\notif.ps1"
 exit
