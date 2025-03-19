@@ -1,8 +1,7 @@
 @echo off
 if "%~1"=="" goto Noarg
 if "%~z1" GEQ 10000000000 goto toobig
-c:
-cd "C:\Program Files\FilesCM"
+c: & cd "C:\Program Files\FilesCM"
 set /p AccID=<AccountID.txt
 if "%AccID%"=="" goto noacc
 break > "C:\Program Files\FilesCM\response.txt"
@@ -31,6 +30,6 @@ exit
 
 :noacc
 break > "C:\Program Files\FilesCM\response.txt"
-curl -F "file=@%~1" -H "X-Account-ID: %AccID%" https://api.files.vc/upload > "C:\Program Files\FilesCM\response.txt"
+curl -F "file=@%~1" https://api.files.vc/upload > "C:\Program Files\FilesCM\response.txt"
 cmd /c start /min "" Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\notif.ps1"
 exit
