@@ -10,7 +10,7 @@ Run 'run this!.bat' in the root folder.
 
 ## Usage
 1. Right-click on any file and click on "Send to files.vc".
-2. The output link will be **automatically copied to your clipboard** and you will be notified once the upload is complete.
+2. By default, the output link will be **automatically copied to your clipboard** and you will be notified once the upload is complete.
 > [!NOTE]
 > Upload will be immediately rejected if the file selected is bigger than 10 GB.
 
