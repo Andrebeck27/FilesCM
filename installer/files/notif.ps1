@@ -1,10 +1,10 @@
 . ./settings.ps1
-if ($LinkOut){
-    $url = Get-Content response.txt | Select-Object -Index 2
+$url = Get-Content response.txt | Select-Object -Index 2
+if ($url -like '*.mp4*'){
+    $linkOut = $Mp4Link
+}
+if ($LinkOut -ne 0){
     $urlOut = ($url -replace '.*    "file_url": "' -replace '",.*')
-    if ($urlOut -like '*.mp4'){
-        $linkOut = $Mp4Link
-    }
     if ($linkOut -eq 2){
         $replacereg = '\..*$'
         $urlOut = ($urlOut -replace '.*/' -replace $replacereg)
