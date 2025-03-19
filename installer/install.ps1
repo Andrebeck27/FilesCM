@@ -1,22 +1,21 @@
 using namespace System.Windows.Forms
 using namespace System.Drawing
 $showuninstallpromptopen = 0
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
 $TempDir = [System.IO.Path]::GetTempPath()
 $OriginalPath = Get-Content "$TempDir\fvcdir.txt"
 $OriginalPath = $OriginalPath -replace ".{1}$" 
-Add-Type -AssemblyName System.Windows.Forms
-Add-Type -AssemblyName System.Drawing
+Remove-Item -Force "$TempDir\fvcdir.txt" 
 [Application]::EnableVisualStyles() 
 Add-Type -AssemblyName PresentationCore,PresentationFramework
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     $regPath = "HKCR:\*\shell\Send to Files.vc"
-    $value = Test-Path -LiteralPath $regPath
-    if($value){
+    if(Test-Path -LiteralPath $regPath){
         $showuninstallpromptopen = 1
      }
     Else{
-        $BTexist = Test-Path -LiteralPath "C:\Program Files\WindowsPowerShell\Modules\BurntToast"
-        if (-not $BTexist) {
+        if (-not (Test-Path -LiteralPath "C:\Program Files\WindowsPowerShell\Modules\BurntToast")) {
         install-module BurntToast -Force
     }
         Set-location -LiteralPath "HKCR:\*\shell"
@@ -52,8 +51,7 @@ You can do so here."
         $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
 
         if($Result -eq "Yes"){
-            
-            Remove-Item -LiteralPath $regPath -Force -Recurse # Spooky !
+            Remove-Item -LiteralPath $regPath -Force -Recurse
             Remove-Item -path "C:\Program Files\FilesCM" -Recurse
             $ButtonType = [System.Windows.Forms.MessageBoxButtons]::Ok
             $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
@@ -71,7 +69,7 @@ You can do so here."
     } else { 
         $ButtonType = [System.Windows.Forms.MessageBoxButtons]::YesNo
         $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
-        $MessageBody = "Done. If you do not see the icon next to the context menu option, restart Explorer.exe. You must set your AccountID in C:\Program Files\FilesCM\AccountID. Open this file?"
+        $MessageBody = "Done. If you do not see the icon next to the context menu option, restart Explorer.exe. Open the AccountID file?"
         $MessageTitle = "Done!"
         $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
     
