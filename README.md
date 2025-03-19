@@ -14,3 +14,7 @@ Run 'run this!.bat' in the root folder.
 > Upload will be immediately rejected if:
 > - The file selected is bigger than 10 GB.
 > - There is no Account ID set.
+
+## Settings
+Settings are stored in `C:\Program Files\FilesCM\settings.ps1`.
+Open this file in any text editor.
