@@ -1,14 +1,8 @@
-using namespace System.Windows.Forms
-using namespace System.Drawing
-$showuninstallpromptopen = 0
 Add-Type -AssemblyName System.Windows.Forms
-Add-Type -AssemblyName System.Drawing
 $TempDir = [System.IO.Path]::GetTempPath()
 $OriginalPath = Get-Content "$TempDir\fvcdir.txt"
 $OriginalPath = $OriginalPath -replace ".{1}$" 
 Remove-Item -Force "$TempDir\fvcdir.txt" 
-[Application]::EnableVisualStyles() 
-Add-Type -AssemblyName PresentationCore,PresentationFramework
     New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
     $regPath = "HKCR:\*\shell\Send to Files.vc"
     if(Test-Path -LiteralPath $regPath){
@@ -31,8 +25,7 @@ Add-Type -AssemblyName PresentationCore,PresentationFramework
         New-Item -Name "command" -Value '"C:\Program Files\FilesCM\send.bat" "%1%"'
     
     Set-location "C:\Program Files"
-    $folderexists = Test-Path -Path "C:\Program Files\FilesCM"
-    if(($folderexists)-and($showuninstallpromptopen -eq 0)){
+    if((Test-Path -Path "C:\Program Files\FilesCM")-and($showuninstallpromptopen -eq 0)){
         $showuninstallpromptopen = 1
     }else{
     New-Item -Name "FilesCM" -ItemType "directory"
@@ -41,7 +34,7 @@ Add-Type -AssemblyName PresentationCore,PresentationFramework
     icacls "C:\Program Files\FilesCM" /grant %username%:F /T
     }
     }
-    if($showuninstallpromptopen -ne 0){
+    if($showuninstallpromptopen){
 
         $ButtonType = [System.Windows.Forms.MessageBoxButtons]::YesNo
         $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Warning
