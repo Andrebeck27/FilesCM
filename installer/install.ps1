@@ -24,6 +24,20 @@ Remove-Item -Force "$TempDir\fvcdir.txt"
         New-ItemProperty @IconregValue
         New-Item -Name "command" -Value '"C:\Program Files\FilesCM\send.bat" "%1%"'
     
+        Set-location -LiteralPath "HKCR:\Directory\shell"
+        New-Item -Name "FCM" -Value "Compress and send to Files.vc"
+        Set-location -LiteralPath "HKCR:\Directory\shell\FCM"
+        $IconregValue = @{
+            LiteralPath = 'HKCR:\Directory\shell\FCM'
+            Name = 'Icon'
+            PropertyType = 'String'
+            Value = '"C:\Program Files\FilesCM\logo.ico"'
+        }
+        New-ItemProperty @IconregValue
+        New-Item -Name "command" -Value '"C:\Program Files\FilesCM\compress.bat" "%1%"'
+
+
+
     Set-location "C:\Program Files"
     if((Test-Path -Path "C:\Program Files\FilesCM")-and($showuninstallpromptopen -eq 0)){
         $showuninstallpromptopen = 1
@@ -44,7 +58,9 @@ You can do so here."
         $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
 
         if($Result -eq "Yes"){
+            $dirregpath = "HKCR:\Directory\shell\FCM"
             Remove-Item -LiteralPath $regPath -Force -Recurse
+            Remove-Item -LiteralPath $dirregpath -Force -Recurse
             Remove-Item -path "C:\Program Files\FilesCM" -Recurse
             $ButtonType = [System.Windows.Forms.MessageBoxButtons]::Ok
             $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
