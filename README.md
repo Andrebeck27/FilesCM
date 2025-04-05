@@ -1,3 +1,5 @@
+# Currently broken! Wait for next release
+
 # FilesCM
 Context menu option to upload file to Files.vc
 
