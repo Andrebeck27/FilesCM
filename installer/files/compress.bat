@@ -1,7 +1,7 @@
 @echo off
 if "%~1"=="" goto Noarg
-cd "%~1"
-Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\chksize.ps1" -dir "%~1" > "C:\Program Files\FilesCM\temp.txt"
+cd %1
+Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\chksize.ps1" -dir %1 > "C:\Program Files\FilesCM\temp.txt"
 c: & cd "C:\Program Files\FilesCM"
 set /p foldersize=<temp.txt
 if %foldersize% GEQ 10000000000 goto toobig
@@ -10,12 +10,14 @@ for /f "skip=1 delims= " %%a in ('wmic logicaldisk get freespace') do set "space
 :break
 if %foldersize% GEQ %space% goto nospace
 :start
-tar -a -cf "C:\Program Files\FilesCM\temp.zip" "%~1" 	|| 	(echo Something went wrong.
+echo Compressing...
+tar -a -cf "C:\Program Files\FilesCM\temp.zip" "%~1" > nul	|| 	(echo Something went wrong.
 															echo Press any key to exit.
 															echo %errorlevel%
 															pause >nul
 															exit
 															)
+Echo Sending...
 send.bat "C:\Program Files\FilesCM\temp.zip"
 exit
 
@@ -43,7 +45,6 @@ exit
 echo Not enough space on your C: drive.
 echo.
 echo The file you are trying to compress is ^>%foldersize:~0,2% Gigabytes. (%foldersize% Bytes)
-echo Explorer shows sizes in GiB, not GB.
 echo Your free disk space is ^~%space:~0,2% Gigabytes. (%space% Bytes)
 echo.
 echo You can close this window and compress the folder yourself, then send it as a file.
