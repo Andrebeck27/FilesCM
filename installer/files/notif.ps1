@@ -19,6 +19,8 @@ if ($LinkOut -ne 0){
         if ($notify){
             $message = Get-Content response.txt | Select-Object -Index 1
             $messageOut = ($message -replace '.*    "message": "' -replace '",.*')
+            $apicheck = Get-Content response.txt | Select-Object -Index 0
+            if ($apicheck -match 'API key'){$messageout = "Invalid API key"}
             New-BurntToastNotification -Applogo "C:\Program Files\FilesCM\logo.ico" -Text "Files.vc upload","$Messageout","$Urlout"
         }
 exit
