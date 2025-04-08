@@ -7,7 +7,7 @@ if "%APIkey%"=="" goto nokey
 set /p AccID=<AccountID.txt
 if "%AccID%"=="" goto noacc
 break > "C:\Program Files\FilesCM\response.txt"
-echo If % uploaded is 100, but nothing is happening, there is likely an internet connection issue!
+echo If percentage uploaded is 100, but nothing is happening, there is likely an internet connection issue!
 curl -F "file=@%~1" -H "X-Account-ID: %AccID%" -H "X-API-Key: %APIkey%" https://api.files.vc/upload > "C:\Program Files\FilesCM\response.txt"
 cmd /c start /min "" Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\notif.ps1"
 if exist "C:\Program Files\FilesCM\temp.zip" 	(
