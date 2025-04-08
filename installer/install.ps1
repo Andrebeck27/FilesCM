@@ -78,14 +78,14 @@ You can do so here."
     } else { 
         $ButtonType = [System.Windows.Forms.MessageBoxButtons]::YesNo
         $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
-        $MessageBody = "Done. If you do not see the icon next to the context menu option, restart Explorer.exe. Open the AccountID file?"
+        $MessageBody = "Done. If you do not see the icon next to the context menu option, restart Explorer.exe. Open the AccountID and APIkey file?"
         $MessageTitle = "Done!"
         $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody,$MessageTitle,$ButtonType,$MessageIcon)
     
         if($Result -eq "Yes"){
             
     Start-process "C:\Program Files\FilesCM\accountID.txt"
-    
+    Start-process "C:\Program Files\FilesCM\APIkey.txt"
         }
         Write-Host "exit isn't working for some reason. If you're seeing this, this is your cue to close this window!"
     }
