@@ -1,6 +1,7 @@
 @echo off
 if "%~1"=="" goto Noarg
 cd %1
+for %%I in (.) do set updname=%%~nI%%~xI
 Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\chksize.ps1" -dir %1 > "C:\Program Files\FilesCM\temp.txt"
 c: & cd "C:\Program Files\FilesCM"
 set /p foldersize=<temp.txt
@@ -11,15 +12,17 @@ for /f "skip=1 delims= " %%a in ('wmic logicaldisk get freespace') do set "space
 if %foldersize% GEQ %space% goto nospace
 :start
 echo Compressing...
-tar -a -cf "C:\Program Files\FilesCM\temp.zip" "%~1" > nul	|| 	(echo Something went wrong.
+tar -a -cf "C:\Program Files\FilesCM\%updname%.zip" "%~1" || (echo Something went wrong.
 															echo Press any key to exit.
 															echo %errorlevel%
 															pause >nul
 															exit
 															)
 Echo Sending...
-send.bat "C:\Program Files\FilesCM\temp.zip"
-exit
+cmd /k send "C:\Program Files\FilesCM\%updname%.zip"
+del /f "C:\Program Files\FilesCM\%updname%.zip"
+del /f "C:\Program Files\FilesCM\temp.txt"
+pause
 
 :toobig
 echo Max filesize allowed is 10GB. (10000000000 Bytes)
