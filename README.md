@@ -22,3 +22,4 @@ Open this file in any text editor.
 ### Error handling
 * If you receive an empty notification, there likely was an internet connection error; check if Files.vc is up and running, or if your internet connection is stable.
 * You can check response.txt in %ProgramFiles%\FilesCM to get more information.
+* Occasionally, when uploading a file / folder the command prompt will close immediately. There is no fix for this besides trying again.
