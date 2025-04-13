@@ -41,6 +41,7 @@ exit
 
 :noacc
 break > "C:\Program Files\FilesCM\response.txt"
+echo Uploading with no account ID.
 curl -F "file=@%~1" -H "X-API-Key: %APIkey%" https://api.files.vc/upload > "C:\Program Files\FilesCM\response.txt"
 cmd /c start /min "" Powershell -ExecutionPolicy Bypass -File "C:\Program Files\FilesCM\notif.ps1"
 exit
