@@ -28,7 +28,7 @@ pause
 echo Max filesize allowed is 10GB. (10000000000 Bytes)
 echo. 
 echo The directory selected is ^~%foldersize:~0,2% GB. (%foldersize% Bytes)
-echo Explorer shows sizes in GiB, not GB.
+echo Explorer shows sizes in (x)iB, not (x)B, and as such will appear smaller than they really are.
 echo.
 echo Compression may lower this size, but there is no estimate.
 echo Press any key to continue.
