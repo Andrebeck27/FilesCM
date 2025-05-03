@@ -22,7 +22,7 @@ Echo Sending...
 cmd /k send "C:\Program Files\FilesCM\%updname%.zip"
 del /f "C:\Program Files\FilesCM\%updname%.zip"
 del /f "C:\Program Files\FilesCM\temp.txt"
-pause
+exit
 
 :toobig
 echo Max filesize allowed is 10GB. (10000000000 Bytes)
